@@ -1,0 +1,27 @@
+{
+  "name": "probot-clean",
+  "version": "0.0.1",
+  "description": "A GitHub App built with Probot that remind developers to release their software.",
+  "author": "Ivan Shcherbak",
+  "license": "MIT",
+  "homepage": "https://github.com/funivan/probot-clean/",
+  "bugs": "https://github.com/funivan/probot-clean/issues",
+  "keywords": [
+    "probot",
+    "github",
+    "probot-app"
+  ],
+  "repository": "https://github.com/funivan/probot-clean",
+  "scripts": {
+    "start": "probot run ./index.js",
+    "test": "npm install && nodejs ./index.js"
+  },
+  "dependencies": {
+    "probot": "7.3.1",
+    "probot-scheduler": "^1.0.2"
+  },
+  "engines": {
+    "node": "^8.9",
+    "npm": "^5.6"
+  }
+}
