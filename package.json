@@ -14,14 +14,35 @@
   "repository": "https://github.com/funivan/probot-clean",
   "scripts": {
     "start": "probot run ./index.js",
-    "test": "npm install && node ./index.js"
+    "lint": "standard --fix",
+    "test": "jest && standard",
+    "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
     "probot": "7.3.1",
     "probot-scheduler": "^1.0.2"
   },
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "standard": "^10.0.3"
+  },
   "engines": {
     "node": "^8.9",
     "npm": "^5.6"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
+  "nodemonConfig": {
+    "exec": "npm start",
+    "watch": [
+      ".env",
+      "."
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
