@@ -32,8 +32,7 @@ describe('bot', () => {
     async () => {
       let bot = new BotClean(github, {owner: 'probot', repo: 'test', logger: app.log})
       await bot.create()
-      // @todo Create issue - test this behavior
-      expect(1).toBe(1)
+      expect(github.issues.create).toHaveBeenCalled()
     }
   )
 })

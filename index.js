@@ -1,18 +1,17 @@
 const createScheduler = require('probot-scheduler')
+const BotClean = require('lib/bot-clean')
+const Commits = require('lib/commits')
 module.exports = async app => {
   app.log('Probot Clean app is running successfully.')
   app.on('schedule.repository', async (context) => {
     app.log(`App is running as per schedule.repository`)
     app.log('Local Time: ' + new Date())
-    const { owner, repo } = context.repo()
+    const { owner, repo, github } = context.repo()
+    let bot = new BotClean(github, { owner, repo, logger: app.log })
     app.log(`Repository: ${owner}/${repo}`)
-    await context.github.issues.create({
-      owner,
-      repo,
-      title: 'Waiting for release',
-      body: 'Too long not released. \n Commits after latest release %s \n Outdated for %d days',
-      labels: ['release-me']
-    })
+    if (new Commits(github, owner, repo).unreleased().size > 5) {
+      await bot.create()
+    }
   })
   createScheduler(
     app,
