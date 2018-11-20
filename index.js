@@ -8,6 +8,8 @@ module.exports = async app => {
     app.log('Local Time: ' + new Date())
     const { owner, repo, github } = context.repo()
     let bot = new BotClean(github, { owner, repo, logger: app.log })
+    // @todo fetch last release date
+    // @todo fetch commits after the date
     app.log(`Repository: ${owner}/${repo}`)
     if (new Commits(github, owner, repo).unreleased().size > 5) {
       await bot.create()
