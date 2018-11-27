@@ -1,6 +1,6 @@
 const createScheduler = require('probot-scheduler')
-const BotClean = require('lib/bot-clean')
-const Commits = require('lib/commits')
+const BotClean = require('./lib/BotClean')
+const Commits = require('./lib/Commits')
 module.exports = async app => {
   app.log('Probot Clean app is running successfully.')
   app.on('schedule.repository', async (context) => {

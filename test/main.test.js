@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 process.env.LOG_LEVEL = 'fatal'
 const {Application} = require('probot')
-const BotClean = require('../lib/bot-clean')
+const BotClean = require('../lib/BotClean')
 const notFoundError = {
   code: 404,
   status: 'Not Found',
