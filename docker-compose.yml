@@ -1,0 +1,13 @@
+version: "2"
+services:
+  node:
+    image: "node:8"
+    user: "node"
+    working_dir: /www
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/www
+    ports:
+      - "3000:3000"
+    command: "npm start"

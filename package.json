@@ -13,7 +13,7 @@
   ],
   "repository": "https://github.com/funivan/probot-clean",
   "scripts": {
-    "start": "probot run ./index.js",
+    "start": "npm install && probot run ./index.js",
     "lint": "standard --fix",
     "test": "jest && standard",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
