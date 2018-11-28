@@ -7,4 +7,4 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 script:
-  - sudo docker-compose run node npm test
+  - sudo docker-compose run --user='root' node npm test
