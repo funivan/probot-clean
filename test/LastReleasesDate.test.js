@@ -26,9 +26,7 @@ test(
         }))
       }
     }
-    expect(
-      (await new LastReleaseDate(github, { owner: 'probot', repo: 'test' }).date())
-        .toString()
-    ).toBe(new Date('2013-02-27T19:35:32Z').toString())
+    let date = (await new LastReleaseDate(github, { owner: 'probot', repo: 'test' }).date()).toString()
+    expect(date).toBe(new Date('2013-02-27T19:35:32Z').toString())
   }
 )

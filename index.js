@@ -11,7 +11,7 @@ module.exports = async app => {
     // @todo fetch last release date
     // @todo fetch commits after the date
     app.log(`Repository: ${owner}/${repo}`)
-    if (new Commits(github, owner, repo).unreleased().size > 5) {
+    if (new Commits(github, owner, repo).after().size > 5) {
       // @todo check if we should create issue
       await bot.create()
     }
