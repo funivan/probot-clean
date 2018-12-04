@@ -8,4 +8,4 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 script:
   - sudo docker-compose run --user='root' node npm test
-  - codecov
+  - bash <(curl -s https://codecov.io/bash) -t "$CODECOV_TOKEN"
