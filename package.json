@@ -15,7 +15,7 @@
   "scripts": {
     "start": "npm install && probot run ./index.js",
     "lint": "standard --fix",
-    "test": "npm install && jest --coverage && standard",
+    "test": "npm install && jest && standard",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
@@ -44,6 +44,8 @@
     ]
   },
   "jest": {
+    "coverageDirectory": "./build/coverage/",
+    "collectCoverage": true,
     "testEnvironment": "node"
   }
 }
