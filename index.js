@@ -1,19 +1,27 @@
 const createScheduler = require('probot-scheduler')
-const BotClean = require('./lib/BotClean')
 const Commits = require('./lib/Commits')
+const DaysDiff = require('./lib/DaysDiff')
+const Issue = require('./lib/Issue')
+const SilentIssue = require('./lib/SilentIssue')
+const LastReleaseDate = require('./lib/LastReleaseDate')
 module.exports = async app => {
-  app.log('Probot Clean app is running successfully.')
+  // @todo read data from config
+  const MAX_DAYS_WAIT = 20
+  const MAX_COMMITS = 5
+  app.log('Probot app is running successfully.')
   app.on('schedule.repository', async (context) => {
-    app.log(`App is running as per schedule.repository`)
+    app.log('App is running as per schedule.repository')
     app.log('Local Time: ' + new Date())
     const { owner, repo, github } = context.repo()
-    let bot = new BotClean(github, { owner, repo, logger: app.log })
-    // @todo fetch last release date
-    // @todo fetch commits after the date
-    app.log(`Repository: ${owner}/${repo}`)
-    if (new Commits(github, owner, repo).after().size > 5) {
-      // @todo check if we should create issue
-      await bot.create()
+    const releaseDate = new LastReleaseDate(github, { owner, repo }).date()
+    if (releaseDate !== null) {
+      const days = new DaysDiff(new Date(), releaseDate).value()
+      if (days > MAX_DAYS_WAIT) {
+        const commits = new Commits(github, owner, repo).after(releaseDate).size
+        if (commits > MAX_COMMITS) {
+          new SilentIssue(new Issue(days, { github, owner, repo }), app.log).create()
+        }
+      }
     }
   })
   createScheduler(
